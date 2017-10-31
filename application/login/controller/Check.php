@@ -4,6 +4,7 @@ use think\Controller;
 use think\Request;
 use think\Validate;
 use think\Db;
+use think\Session;
 class  Check extends Controller
 {
 
@@ -31,7 +32,7 @@ class  Check extends Controller
         if (!$validate->check($data)) {
             $this->error($validate->getError());
         }
-        elseif($this->checkDB())
+        elseif(!$this->checkDB())
         {
             $this->error('无效的用户名');
         }
@@ -41,16 +42,19 @@ class  Check extends Controller
     }
     public function checkDB()
     {
-        $sql_text='部门表';
-        $sql_text=iconv("utf-8","gb2312//IGNORE",$sql_text);
-        $result = Db::table($sql_text)->select();
-//        $result = Db::connect($conn, true)->table('部门表')->select();
-//
+//        $sql_text='部门表';
+//        $sql_text=iconv("utf-8","gb2312//IGNORE",$sql_text);
+//        $result = Db::query('select * from think_user where id=:id',['id'=>8]);
+//        $result = Db::connect($conn, true)->table('部门表')->select();//
         $tools=new Tools();
-        $result = $tools->array_iconv('gb2312', 'utf-8', $result);
-
-        dump($result);
-        return ture;
+//        $result = $tools->array_iconv('gb2312', 'utf-8', $result);
+        session::set('name','黄中和');
+        session::set('deptname','信息科');
+        session::set('username','U08662');
+        session::set('position','普通职员');
+        session::set('title','助理工程师');
+        session::set('sex','男');
+        return true;
 
     }
 

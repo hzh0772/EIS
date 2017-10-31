@@ -7,15 +7,18 @@ class Index extends Controller
     {
         //        return $this->fetch('login',[],['__STATIC__'=>'/public/static']);
 
+
         $this->assign('online', '在线');
         $this->assign('sysname','科大一附院广内网平台');
         $this->assign('messages',99);
         $this->assign('notifications',88);
         $this->assign('tasks',66);
         return $this->fetch('index/index',[
-            'username'  => '黄中和',
-            'userid' => 'U0866',
-            'job' =>'助理工程师',
+            'name'  => session('name'),
+            'username' => session('username'),
+            'title' =>session('title'),
+            'position'=>session('position'),
+            'sex'=>session('sex'),
             'followers'=>'100',
             'thumbs'=>'99',
             'friends'=>'22'
