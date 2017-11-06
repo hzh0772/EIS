@@ -36,7 +36,10 @@ class  Check extends Controller
         {
             $this->error('无效的用户名');
         }
-        else $this->success('登录成功', 'main/index/index');
+        else
+        {
+            $this->success('登录成功', 'main/index/index');
+        }
 
 
     }
@@ -46,11 +49,11 @@ class  Check extends Controller
 //        $sql_text=iconv("utf-8","gb2312//IGNORE",$sql_text);
 //        $result = Db::query('select * from think_user where id=:id',['id'=>8]);
 //        $result = Db::connect($conn, true)->table('部门表')->select();//
-        $tools=new Tools();
+//        $tools=new Tools();
 //        $result = $tools->array_iconv('gb2312', 'utf-8', $result);
         session::set('name','黄中和');
-        session::set('deptname','信息科');
-        session::set('username','U08662');
+        session::set('dept','信息科');
+        session::set('username','U0866');
         session::set('position','普通职员');
         session::set('title','助理工程师');
         session::set('sex','男');

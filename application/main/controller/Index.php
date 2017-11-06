@@ -8,9 +8,9 @@ class Index extends Controller
         //        return $this->fetch('login',[],['__STATIC__'=>'/public/static']);
 
 
-        $this->assign('online', '在线');
-        $this->assign('sysname','科大一附院广内网平台');
-        $intit=new Initialize();
+//        $this->assign('online', '在线');
+//        $this->assign('sysname','科大一附院广内网平台');
+        $int=new Initialize();
 //        return $this->fetch('index/index',[
 //            'name'  => session('name'),
 //            'username' => session('username'),
@@ -22,7 +22,7 @@ class Index extends Controller
 //            'friends'=>'22'
 //
 //        ]);
-        return $this->fetch('index/index',$intit->user);
+        return $this->fetch('index/index');
 //        $this->view->engine->layout(false); 屏蔽模板输出
 //        return $this->fetch('index/index2');
     }
