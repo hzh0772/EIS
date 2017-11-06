@@ -25,12 +25,12 @@
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" action="{:url('main/folder/upload')}" enctype="multipart/form-data" method="post">
+                    <form class="form" action="{:url('main/folder/upload')}" enctype="multipart/form-data" method="post">
                         <div class="box-body">
 
                             <div class="form-group">
-                                <label for="exampleInputFile">File input</label>
-                                <input type="file" id="exampleInputFile">
+                                <label for="file">File input</label>
+                                <input type="file" name="file">
 
                                 <p class="help-block">Example block-level help text here.</p>
                             </div>
@@ -43,7 +43,7 @@
                         <!-- /.box-body -->
 
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <input type="submit" class="btn btn-primary">Submit</input>
                         </div>
                     </form>
                 </div>
