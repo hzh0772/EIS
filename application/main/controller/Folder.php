@@ -1,5 +1,6 @@
 <?php
 namespace app\main\controller;
+use app\main\model\Folder as FolderModel ;
 use think\Controller;
 use think\Db;
 use think\Request;
@@ -10,6 +11,12 @@ class Folder extends Controller
     public function index()
     {
         return $this->fetch();
+
+    }
+
+    public function download()
+    {
+
 
     }
 
@@ -32,17 +39,26 @@ class Folder extends Controller
         }
         else{
             $file=$request->file('file');
+            $filename= $file->getInfo('name');
+            $saveName = iconv("UTF-8", "GB2312", $filename);
 
 
             if(empty($file)){
                 $this->error('请选择上传文件');
             }
-            // 移动到框架应用根目录/public/uploads/
-            $info=$file->validate(['ext'=>'xls,xlsx,png,jpg'])->move(ROOT_PATH.'public'.DS.'uploads'.DS.Session::get('username'),'');
-//        $info=$file->move(ROOT_PATH.'public'.DS.'uploads','');
+            $info=$file->validate(['ext'=>'rar,txt,png,jpg,xls,xlsx,ppt,pptx,doc,docx'])->rule('uniqid')->move(ROOT_PATH.'public'.DS.'uploads'.DS.Session::get('username'),$saveName);
             if($info){
-                // $this->success('文件上传成功:'.$info->getRealPath());
-                $this->success('文件上传成功:'.$filename);
+                $folder=new FolderModel;
+                $folder->filename=$filename;
+                $folder->owner=Session::get('name');
+                $folder->ownerid=Session::get('userid');
+                if($folder->save()){
+                    $this->success('文件上传成功:'.$filename);
+                }
+                else $this->error('数据库提交失败！');
+
+
+
             }
             else{
                 $this->error($file->getError());
