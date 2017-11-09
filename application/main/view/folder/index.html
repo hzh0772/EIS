@@ -51,25 +51,30 @@
                     </div>
                     <table class="table table-hover ">
                         <!--<caption></caption>-->
-                        <!--<thead>-->
-                        <!--<tr>-->
-                            <!--<th></th>-->
-                            <!--<th></th>-->
-                        <!--</tr>-->
-                        <!--</thead>-->
+                        <thead>
+                        <tr>
+                            <th>文件名</th>
+                            <th>公开</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
                         <tbody>
+                        {volist name="myfilelist" id="vo"  }
                         <tr>
-                            <td>黄中和的文件</td>
-                            <td><button><a href="__ROOT__/uploads/{$Request.session.username}/1柳州市财政局-陈小燕_副本.jpg"download="" >下载</a></button></td>
-                        </tr>
-                        <tr>
-                            <td>hhhh</td>
-                            <td><button>下载</button></td>
-                        </tr>
-                        <tr>
-                            <td>hhhh</td>
-                            <td>下载</td>
-                        </tr>
+                            <td>{$vo.filename}</td>
+                            <td>
+                                {switch name="$vo.public" }
+                                {case value="1"}是{/case}
+                                {case value="0"}否{/case}
+                                {default /}未知
+                                {/switch}
+                            </td>
+                            <td><button ><a href="__ROOT__/uploads/{$vo.username}/{$vo.coding}"download="{$vo.filename}" >下载</a></button></td>
+                            <td><button><a href="{:url('main/folder/delete',['fileid'=>$vo['fileid']])}">删除</a></button></td>
+                       </tr>
+                        {/volist}
+
                         </tbody>
                     </table>
                 </div>
@@ -82,49 +87,59 @@
             <!-- right column -->
             <div class="col-md-6">
                 <!-- Horizontal Form -->
-                <div class="box box-info">
+                <div class="box box-danger">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Horizontal Form</h3>
+                        <h3 class="box-title">上传文件至公开的文件夹</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
-                    <form class="form-horizontal">
+                    <form class="form" action="{:url('main/folder/upload2')}" enctype="multipart/form-data" method="post">
                         <div class="box-body">
-                            <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                                </div>
-                            </div>
                             <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                                <label for="file">点击选择需要上传的文件</label>
+                                <input type="file" name="publicfile" id="publicfile">
 
-                                <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                                </div>
+                                <p class="help-block">支持格式：PPT、Word、Excel、JPG、PNG、RAR.</p>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Remember me
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <!-- /.box-body -->
+
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-default">Cancel</button>
-                            <button type="submit" class="btn btn-info pull-right">Sign in</button>
+                            <button type="submit" class="btn btn-danger">提交上传</button>
                         </div>
-                        <!-- /.box-footer -->
                     </form>
                 </div>
                 <!-- /.box -->
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">从公开的文件夹下载</h3>
+                    </div>
+                    <table class="table table-hover ">
+                        <!--<caption></caption>-->
+                        <thead>
+                        <tr>
+                            <th>文件名</th>
+                            <th>所有者</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="publicfilelist" id="vo"  }
+                        <tr>
+                            <td>{$vo.filename}</td>
+                            <td>{$vo.name}</td>
+                            <td><button><a href="__ROOT__/uploads/{$vo.username}/{$vo.coding}"download="{$vo.filename}" >下载</a></button></td>
+                            <!--<td><button><a href="{:url('main/folder/delete',['fileid'=>$vo['fileid']])}">删除</a></button></td>-->
+                        </tr>
+                        {/volist}
 
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
             <!--/.col (right) -->
         </div>
         <!-- /.row -->
