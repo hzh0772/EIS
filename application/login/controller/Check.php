@@ -1,5 +1,6 @@
 <?php
 namespace app\login\controller;
+use app\login\model\User;
 use think\Controller;
 use think\Request;
 use think\Validate;
@@ -32,7 +33,7 @@ class  Check extends Controller
         if (!$validate->check($data)) {
             $this->error($validate->getError());
         }
-        elseif(!$this->checkDB())
+        elseif(!$this->checkDB($data))
         {
             $this->error('无效的用户名');
         }
@@ -43,7 +44,7 @@ class  Check extends Controller
 
 
     }
-    public function checkDB()
+    public function checkDB($data)
     {
 //        $sql_text='部门表';
 //        $sql_text=iconv("utf-8","gb2312//IGNORE",$sql_text);
@@ -51,14 +52,63 @@ class  Check extends Controller
 //        $result = Db::connect($conn, true)->table('部门表')->select();//
 //        $tools=new Tools();
 //        $result = $tools->array_iconv('gb2312', 'utf-8', $result);
-        session::set('name','黄中和');
-        session::set('dept','信息科');
-        session::set('username','U0866');
-        session::set('position','普通职员');
-        session::set('title','助理工程师');
-        session::set('sex','男');
-        return true;
+//        $data = [
+//            'username'=>'zlhis',
+//            'password' =>'yfy'
+//        ];
+        $post_data=(array) $data;
+        $url = "http://localhost/hislogin/hislogin.php";
+//        $post_data = array ("username" => "bob","key" => "12345");
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // post数据
+        curl_setopt($ch, CURLOPT_POST, 1);
+        // post的变量
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        $info=json_decode($output);
+        if($info->status=="success")
+        {
+
+            $user=new User;
+//            $user->where('username',$info->username)->find();
+//            dump($user->where('username',$info->username)->find());
+            if(empty($user->where('username',$info->username)->find()))
+            {
+                $user->name=$info->name;
+                $user->dept=$info->dept;
+                $user->username=$info->username;
+                $user->position=$info->position;
+                $user->title=$info->title;
+                $user->sex=$info->sex;
+                $user->save();
+                session::set('username',$info->username);
+                return  true;
+            }
+            else
+            {
+                $user->where('username',$info->username)
+                    ->update([
+                        'name' =>$info->name,
+                        'dept' =>$info->dept,
+                        'position' =>$info->position,
+                        'title' =>$info->title,
+                        'sex' =>$info->sex
+                    ]);
+                session::set('username',$info->username);
+                return  true;
+            }
+
+
+        }
+        return  false;
 
     }
+
+
+
+
 
 }

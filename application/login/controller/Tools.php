@@ -2,35 +2,35 @@
 namespace app\login\controller;
 class  Tools
 {
-//    public function mult_iconv($in_charset,$out_charset,$data)
-//    {
-//        if(substr($out_charset,-8)=='//IGNORE'){
-//            $out_charset=substr($out_charset,0,-8);
-//        }
-//        if(is_array($data)){
-//            foreach($data as $key => $value){
-//                if(is_array($value)){
-//                    $key=iconv($in_charset,$out_charset.'//IGNORE',$key);
-//                    $rtn[$key]=mult_iconv($in_charset,$out_charset,$value);
-//                }elseif(is_string($key) || is_string($value)){
-//                    if(is_string($key)){
-//                        $key=iconv($in_charset,$out_charset.'//IGNORE',$key);
-//                    }
-//                    if(is_string($value)){
-//                        $value=iconv($in_charset,$out_charset.'//IGNORE',$value);
-//                    }
-//                    $rtn[$key]=$value;
-//                }else{
-//                    $rtn[$key]=$value;
-//                }
-//            }
-//        }elseif(is_string($data)){
-//            $rtn=iconv($in_charset,$out_charset.'//IGNORE',$data);
-//        }else{
-//            $rtn=$data;
-//        }
-//        return $rtn;
-//    }
+    public function mult_iconv($in_charset,$out_charset,$data)
+    {
+        if(substr($out_charset,-8)=='//IGNORE'){
+            $out_charset=substr($out_charset,0,-8);
+        }
+        if(is_array($data)){
+            foreach($data as $key => $value){
+                if(is_array($value)){
+                    $key=iconv($in_charset,$out_charset.'//IGNORE',$key);
+                    $rtn[$key]=mult_iconv($in_charset,$out_charset,$value);
+                }elseif(is_string($key) || is_string($value)){
+                    if(is_string($key)){
+                        $key=iconv($in_charset,$out_charset.'//IGNORE',$key);
+                    }
+                    if(is_string($value)){
+                        $value=iconv($in_charset,$out_charset.'//IGNORE',$value);
+                    }
+                    $rtn[$key]=$value;
+                }else{
+                    $rtn[$key]=$value;
+                }
+            }
+        }elseif(is_string($data)){
+            $rtn=iconv($in_charset,$out_charset.'//IGNORE',$data);
+        }else{
+            $rtn=$data;
+        }
+        return $rtn;
+    }
 
     function array_iconv($in_charset, $out_charset, $arr)
     {
@@ -73,4 +73,6 @@ class  Tools
         }
         return $psw;
     }
+
+
 }

@@ -15,13 +15,12 @@ class Initialize extends Controller
 
     function user()
     {
-        $arry=  User::get(['username' =>'U0866'])->toArray();
+
+        $arry=  User::get(['username' =>Session::get('username')])->toArray();
         $this->user=$arry;
         foreach($arry as $key=>$value)
         {
             Session::set($key,$value);
-//            echo Session::get($key)."</br>";
-
         }
 
 //        dump($this->user);

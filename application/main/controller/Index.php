@@ -5,11 +5,7 @@ class Index extends Controller
 {
     public function index()
     {
-        //        return $this->fetch('login',[],['__STATIC__'=>'/public/static']);
 
-
-//        $this->assign('online', '在线');
-//        $this->assign('sysname','科大一附院广内网平台');
         $int=new Initialize();
 //        return $this->fetch('index/index',[
 //            'name'  => session('name'),
