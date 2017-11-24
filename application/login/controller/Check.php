@@ -57,7 +57,7 @@ class  Check extends Controller
 //            'password' =>'yfy'
 //        ];
         $post_data=(array) $data;
-        $url = "http://localhost/hislogin/hislogin.php";
+        $url = "http://220.173.106.55:8888/hislogin/hislogin.php";
 //        $post_data = array ("username" => "bob","key" => "12345");
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -83,6 +83,7 @@ class  Check extends Controller
                 $user->position=$info->position;
                 $user->title=$info->title;
                 $user->sex=$info->sex;
+                $user->introduction=$info->introduction;
                 $user->save();
                 session::set('username',$info->username);
                 return  true;
@@ -95,7 +96,8 @@ class  Check extends Controller
                         'dept' =>$info->dept,
                         'position' =>$info->position,
                         'title' =>$info->title,
-                        'sex' =>$info->sex
+                        'sex' =>$info->sex,
+                        'introduction'=>$info->introduction,
                     ]);
                 session::set('username',$info->username);
                 return  true;
