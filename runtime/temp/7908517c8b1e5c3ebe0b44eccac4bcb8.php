@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:67:"E:\wamp64\www\EIS\public/../application/main\view\folder\index.html";i:1510238607;s:68:"E:\wamp64\www\EIS\public/../application/main\view\layout\layout.html";i:1509368101;s:68:"E:\wamp64\www\EIS\public/../application/main\view\public\header.html";i:1511783684;s:68:"E:\wamp64\www\EIS\public/../application/main\view\public\footer.html";i:1509805269;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,10 +99,10 @@
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">{$Request.session.messages}</span>
+                            <span class="label label-success"><?php echo \think\Request::instance()->session('messages'); ?></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">你有 {$Request.session.messages} 封未读消息</li>
+                            <li class="header">你有 <?php echo \think\Request::instance()->session('messages'); ?> 封未读消息</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
@@ -175,10 +176,10 @@
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">{$Request.session.notifications}</span>
+                            <span class="label label-warning"><?php echo \think\Request::instance()->session('notifications'); ?></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">你有 {$Request.session.notifications} 个通知</li>
+                            <li class="header">你有 <?php echo \think\Request::instance()->session('notifications'); ?> 个通知</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
@@ -217,10 +218,10 @@
                     <li class="dropdown tasks-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-flag-o"></i>
-                            <span class="label label-danger">{$Request.session.tasks}</span>
+                            <span class="label label-danger"><?php echo \think\Request::instance()->session('tasks'); ?></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">你有 {$Request.session.tasks} 个待办任务</li>
+                            <li class="header">你有 <?php echo \think\Request::instance()->session('tasks'); ?> 个待办任务</li>
                             <li>
                                 <!-- inner menu: contains the actual data -->
                                 <ul class="menu">
@@ -295,7 +296,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="__STATIC__/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">{$Request.session.name}</span>
+                            <span class="hidden-xs"><?php echo \think\Request::instance()->session('name'); ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -303,22 +304,22 @@
                                 <img src="__STATIC__/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                 <p>
-                                    {$Request.session.username} - {$Request.session.sex}
-                                    <small>{$Request.session.position}</small>
-                                    <small>{$Request.session.title}</small>
+                                    <?php echo \think\Request::instance()->session('username'); ?> - <?php echo \think\Request::instance()->session('sex'); ?>
+                                    <small><?php echo \think\Request::instance()->session('position'); ?></small>
+                                    <small><?php echo \think\Request::instance()->session('title'); ?></small>
                                 </p>
                             </li>
                             <!-- Menu Body -->
                             <li class="user-body">
                                 <div class="row">
                                     <div class="col-xs-4 text-center">
-                                        <a href="#">鲜花{$Request.session.followers}</a>
+                                        <a href="#">鲜花<?php echo \think\Request::instance()->session('followers'); ?></a>
                                     </div>
                                     <div class="col-xs-4 text-center">
-                                        <a href="#">点赞{$Request.session.thumbs}</a>
+                                        <a href="#">点赞<?php echo \think\Request::instance()->session('thumbs'); ?></a>
                                     </div>
                                     <div class="col-xs-4 text-center">
-                                        <a href="#">粉丝{$Request.session.following}</a>
+                                        <a href="#">粉丝<?php echo \think\Request::instance()->session('following'); ?></a>
                                     </div>
                                 </div>
                                 <!-- /.row -->
@@ -326,10 +327,10 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{:url('main/profile/index')}" class="btn btn-default btn-flat">个人信息</a>
+                                    <a href="<?php echo url('main/profile/index'); ?>" class="btn btn-default btn-flat">个人信息</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{:url('login/index/index')}" class="btn btn-default btn-flat">退出系统</a>
+                                    <a href="<?php echo url('login/index/index'); ?>" class="btn btn-default btn-flat">退出系统</a>
                                 </div>
                             </li>
                         </ul>
@@ -352,12 +353,9 @@
                     <img src="__STATIC__/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>{$Request.session.name}</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i>{switch name="Request.session.online" }
-                        {case value="1" }在线{/case}
-                        {case value="2"}隐身{/case}
-                        {default /}不在线
-                        {/switch}</a>
+                    <p><?php echo \think\Request::instance()->session('name'); ?></p>
+                    <a href="#"><i class="fa fa-circle text-success"></i><?php switch(\think\Request::instance()->session('online')): case "1": ?>在线<?php break; case "2": ?>隐身<?php break; default: ?>不在线
+                        <?php endswitch; ?></a>
                 </div>
             </div>
             <!-- search form -->
@@ -383,8 +381,8 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{:url('main/index/index')}"><i class="fa fa-dashboard "></i> 首页面板</a></li>
-                        <li><a href="{:url('main/profile/index')}"><i class="fa  fa-users"></i> 个人信息</a></li>
+                        <li class="active"><a href="<?php echo url('main/index/index'); ?>"><i class="fa fa-dashboard "></i> 首页面板</a></li>
+                        <li><a href="<?php echo url('main/profile/index'); ?>"><i class="fa  fa-users"></i> 个人信息</a></li>
                     </ul>
                 </li>
                 <li class="treeview">
@@ -396,8 +394,8 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{:url('main/folder/index')}"><i class="fa fa-folder-open"></i>文件夹</a></li>
-                        <li><a href="{:url('main/folder/index')}"><i class="fa fa-circle-o"></i> Icons</a></li>
+                        <li><a href="<?php echo url('main/folder/index'); ?>"><i class="fa fa-folder-open"></i>文件夹</a></li>
+                        <li><a href="<?php echo url('main/folder/index'); ?>"><i class="fa fa-circle-o"></i> Icons</a></li>
                         <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
                         <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
                         <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
@@ -512,3 +510,354 @@
 
     <!-- Content Wrapper. Contains page content -->
     <!--<div class="content-wrapper">-->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            文件夹
+            <small>内外网文件转换</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i>主页</a></li>
+            <li><a href="#">常用程序</a></li>
+            <li class="active">文件夹</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">上传文件至<?php echo \think\Request::instance()->session('name'); ?>的文件夹</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form" action="<?php echo url('main/folder/upload'); ?>" enctype="multipart/form-data" method="post">
+                        <div class="box-body">
+
+                            <div class="form-group">
+                                <label for="file">点击选择需要上传的文件</label>
+                                <input type="file" name="file" id="file">
+
+                                <p class="help-block">支持格式：PPT、Word、Excel、JPG、PNG、RAR.</p>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">提交上传</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">从<?php echo \think\Request::instance()->session('name'); ?>的文件夹下载</h3>
+                    </div>
+                    <table class="table table-hover ">
+                        <!--<caption></caption>-->
+                        <thead>
+                        <tr>
+                            <th>文件名</th>
+                            <th>公开</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if(is_array($myfilelist) || $myfilelist instanceof \think\Collection || $myfilelist instanceof \think\Paginator): $i = 0; $__LIST__ = $myfilelist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <tr>
+                            <td><?php echo $vo['filename']; ?></td>
+                            <td>
+                                <?php switch($vo['public']): case "1": ?>是<?php break; case "0": ?>否<?php break; default: ?>未知
+                                <?php endswitch; ?>
+                            </td>
+                            <td><button ><a href="__ROOT__/uploads/<?php echo $vo['username']; ?>/<?php echo $vo['coding']; ?>"download="<?php echo $vo['filename']; ?>" >下载</a></button></td>
+                            <td><button><a href="<?php echo url('main/folder/delete',['fileid'=>$vo['fileid']]); ?>">删除</a></button></td>
+                       </tr>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Form Element sizes -->
+
+
+
+            </div>
+            <!--/.col (left) -->
+            <!-- right column -->
+            <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">上传文件至公开的文件夹</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form class="form" action="<?php echo url('main/folder/upload2'); ?>" enctype="multipart/form-data" method="post">
+                        <div class="box-body">
+
+                            <div class="form-group">
+                                <label for="file">点击选择需要上传的文件</label>
+                                <input type="file" name="publicfile" id="publicfile">
+
+                                <p class="help-block">支持格式：PPT、Word、Excel、JPG、PNG、RAR.</p>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-danger">提交上传</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box -->
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">从公开的文件夹下载</h3>
+                    </div>
+                    <table class="table table-hover ">
+                        <!--<caption></caption>-->
+                        <thead>
+                        <tr>
+                            <th>文件名</th>
+                            <th>所有者</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if(is_array($publicfilelist) || $publicfilelist instanceof \think\Collection || $publicfilelist instanceof \think\Paginator): $i = 0; $__LIST__ = $publicfilelist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                        <tr>
+                            <td><?php echo $vo['filename']; ?></td>
+                            <td><?php echo $vo['name']; ?></td>
+                            <td><button><a href="__ROOT__/uploads/<?php echo $vo['username']; ?>/<?php echo $vo['coding']; ?>"download="<?php echo $vo['filename']; ?>" >下载</a></button></td>
+                            <!--<td><button><a href="<?php echo url('main/folder/delete',['fileid'=>$vo['fileid']]); ?>">删除</a></button></td>-->
+                        </tr>
+                        <?php endforeach; endif; else: echo "" ;endif; ?>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<!--</div>-->
+<footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> 2.4.0
+    </div>
+    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+    reserved.
+</footer>
+
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+        <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <!-- Home tab content -->
+        <div class="tab-pane" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                            <p>Will be 23 on April 24th</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                            <p>New phone +1(800)555-1234</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                            <p>nora@example.com</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                        <div class="menu-info">
+                            <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                            <p>Execution time 5 seconds</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.control-sidebar-menu -->
+
+            <h3 class="control-sidebar-heading">Tasks Progress</h3>
+            <ul class="control-sidebar-menu">
+                <li>
+                    <a href="javascript:void(0)">
+                        <h4 class="control-sidebar-subheading">
+                            Custom Template Design
+                            <span class="label label-danger pull-right">70%</span>
+                        </h4>
+
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <h4 class="control-sidebar-subheading">
+                            Update Resume
+                            <span class="label label-success pull-right">95%</span>
+                        </h4>
+
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <h4 class="control-sidebar-subheading">
+                            Laravel Integration
+                            <span class="label label-warning pull-right">50%</span>
+                        </h4>
+
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        <h4 class="control-sidebar-subheading">
+                            Back End Framework
+                            <span class="label label-primary pull-right">68%</span>
+                        </h4>
+
+                        <div class="progress progress-xxs">
+                            <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.control-sidebar-menu -->
+
+        </div>
+        <!-- /.tab-pane -->
+        <!-- Stats tab content -->
+        <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+        <!-- /.tab-pane -->
+        <!-- Settings tab content -->
+        <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+                <h3 class="control-sidebar-heading">General Settings</h3>
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Report panel usage
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+
+                    <p>
+                        Some information about this general settings option
+                    </p>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Allow mail redirect
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+
+                    <p>
+                        Other sets of options are available
+                    </p>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Expose author name in posts
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+
+                    <p>
+                        Allow the user to show his name in blog posts
+                    </p>
+                </div>
+                <!-- /.form-group -->
+
+                <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Show me as online
+                        <input type="checkbox" class="pull-right" checked>
+                    </label>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Turn off notifications
+                        <input type="checkbox" class="pull-right">
+                    </label>
+                </div>
+                <!-- /.form-group -->
+
+                <div class="form-group">
+                    <label class="control-sidebar-subheading">
+                        Delete chat history
+                        <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                    </label>
+                </div>
+                <!-- /.form-group -->
+            </form>
+        </div>
+        <!-- /.tab-pane -->
+    </div>
+</aside>
+<!-- /.control-sidebar -->
+<!-- Add the sidebar's background. This div must be placed
+     immediately after the control sidebar -->
+<div class="control-sidebar-bg"></div>
+</div>
+</body>
+</html>
