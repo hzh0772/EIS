@@ -21,7 +21,9 @@
                 <!-- Profile Image -->
                 <div class="box box-primary">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="__ROOT__/profile/picture/{$Request.session.username}.jpg" alt="User profile picture">
+                        <img class="profile-user-img img-responsive img-circle"
+                             src="{empty name="Request.session.headimg"}__ROOT__/profile/picture/default.jpg{else /}__ROOT__/profile/picture/{$Request.session.headimg}{/empty}"
+                             alt="User profile picture" >
 
                         <h3 class="profile-username text-center">{$Request.session.name}</h3>
 

@@ -15,13 +15,17 @@ class Initialize extends Controller
 
     function user()
     {
-
+        //初始化User，读取数据库USER值，存入Session
         $arry=  User::get(['username' =>Session::get('username')])->toArray();
         $this->user=$arry;
         foreach($arry as $key=>$value)
         {
             Session::set($key,$value);
         }
+        //设置默认头像
+//        if(!Session::has('headimg')){
+//            Session::set('headimg','default.jpg');
+//        }
 
 //        dump($this->user);
 //        $this->user= [
